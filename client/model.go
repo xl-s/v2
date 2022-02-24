@@ -36,6 +36,7 @@ type User struct {
 	EntrySwipe        bool       `json:"entry_swipe"`
 	LastLoginAt       *time.Time `json:"last_login_at"`
 	DisplayMode       string     `json:"display_mode"`
+	MarkReadOnView    bool       `json:"mark_read_on_view"`
 }
 
 func (u User) String() string {
@@ -69,6 +70,7 @@ type UserModificationRequest struct {
 	ShowReadingTime   *bool   `json:"show_reading_time"`
 	EntrySwipe        *bool   `json:"entry_swipe"`
 	DisplayMode       *string `json:"display_mode"`
+	MarkReadOnView    *bool   `json:"mark_read_on_view"`
 }
 
 // Users represents a list of users.

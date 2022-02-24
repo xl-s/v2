@@ -28,6 +28,7 @@ type SettingsForm struct {
 	CustomCSS         string
 	EntrySwipe        bool
 	DisplayMode       string
+	MarkReadOnView    bool
 }
 
 // Merge updates the fields of the given user.
@@ -44,6 +45,7 @@ func (s *SettingsForm) Merge(user *model.User) *model.User {
 	user.Stylesheet = s.CustomCSS
 	user.EntrySwipe = s.EntrySwipe
 	user.DisplayMode = s.DisplayMode
+	user.MarkReadOnView = s.MarkReadOnView
 
 	if s.Password != "" {
 		user.Password = s.Password
@@ -93,5 +95,6 @@ func NewSettingsForm(r *http.Request) *SettingsForm {
 		CustomCSS:         r.FormValue("custom_css"),
 		EntrySwipe:        r.FormValue("entry_swipe") == "1",
 		DisplayMode:       r.FormValue("display_mode"),
+		MarkReadOnView:    r.FormValue("mark_read_on_view") == "1",
 	}
 }

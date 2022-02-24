@@ -305,6 +305,7 @@
     "form.prefs.label.show_reading_time": "Εμφάνιση εκτιμώμενου χρόνου ανάγνωσης για άρθρα",
     "form.prefs.label.custom_css": "Προσαρμοσμένο CSS",
     "form.prefs.label.entry_order": "Στήλη ταξινόμησης εισόδου",
+    "form.prefs.label.mark_read_on_view": "Αυτόματη επισήμανση καταχωρήσεων ως αναγνωσμένων κατά την προβολή",
     "form.import.label.file": "Αρχείο OPML",
     "form.import.label.url": "URL",
     "form.integration.fever_activate": "Ενεργοποιήστε το Fever API",

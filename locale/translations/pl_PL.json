@@ -307,6 +307,7 @@
     "form.prefs.select.created_time": "Czas utworzenia wpisu",
     "form.prefs.label.custom_css": "Niestandardowy CSS",
     "form.prefs.label.entry_order": "Kolumna sortowania wpisów",
+    "form.prefs.label.mark_read_on_view": "Automatycznie oznaczaj wpisy jako przeczytane podczas przeglądania",
     "form.import.label.file": "Plik OPML",
     "form.import.label.url": "URL",
     "form.integration.fever_activate": "Aktywuj Fever API",
