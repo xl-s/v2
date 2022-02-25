@@ -7,7 +7,7 @@
             <a href="{{ .entry.URL | safeURL }}" target="_blank" rel="noopener noreferrer" referrerpolicy="no-referrer">{{ .entry.Title }}</a>
         </h1>
         {{ if .user }}
-        <div class="entry-actions">
+        <div class="entry-actions-top">
             <ul>
                 <li>
                     <a href="#"
@@ -187,8 +187,97 @@
         {{ end }}
         </details>
     {{ end }}
+    {{ if .user }}
+    <div class="entry-actions-bottom">
+        <ul>
+            <li>
+                <a href="#"
+                   title="{{ t "entry.status.title" }}"
+                data-toggle-status="true"
+                data-label-loading="{{ t "entry.state.saving" }}"
+                data-label-unread="{{ t "entry.status.unread" }}"
+                data-label-read="{{ t "entry.status.read" }}"
+                data-toast-unread="{{ t "entry.status.toast.unread" }}"
+                data-toast-read="{{ t "entry.status.toast.read" }}"
+                data-value="{{ if eq .entry.Status "read" }}read{{ else }}unread{{ end }}"
+                >{{ if eq .entry.Status "unread" }}{{ icon "read" }}{{ else }}{{ icon "unread" }}{{ end }}<span class="icon-label">{{ if eq .entry.Status "unread" }}{{ t "entry.status.read" }}{{ else }}{{ t "entry.status.unread" }}{{ end }}</span></a>
+            </li>
+            <li>
+                <a href="#"
+                   data-toggle-bookmark="true"
+                   data-bookmark-url="{{ route "toggleBookmark" "entryID" .entry.ID }}"
+                data-label-loading="{{ t "entry.state.saving" }}"
+                data-label-star="{{ t "entry.bookmark.toggle.on" }}"
+                data-label-unstar="{{ t "entry.bookmark.toggle.off" }}"
+                data-toast-star="{{ t "entry.bookmark.toast.on" }}"
+                data-toast-unstar="{{ t "entry.bookmark.toast.off" }}"
+                data-value="{{ if .entry.Starred }}star{{ else }}unstar{{ end }}"
+                >{{ if .entry.Starred }}{{ icon "unstar" }}{{ else }}{{ icon "star" }}{{ end }}<span class="icon-label">{{ if .entry.Starred }}{{ t "entry.bookmark.toggle.off" }}{{ else }}{{ t "entry.bookmark.toggle.on" }}{{ end }}</span></a>
+            </li>
+            {{ if .hasSaveEntry }}
+            <li>
+                <a href="#"
+                   title="{{ t "entry.save.title" }}"
+                data-save-entry="true"
+                data-save-url="{{ route "saveEntry" "entryID" .entry.ID }}"
+                data-label-loading="{{ t "entry.state.saving" }}"
+                data-label-done="{{ t "entry.save.completed" }}"
+                data-toast-done="{{ t "entry.save.toast.completed" }}"
+                >{{ icon "save" }}<span class="icon-label">{{ t "entry.save.label" }}</span></a>
+            </li>
+            {{ end }}
+            {{ if .entry.ShareCode }}
+            <li>
+                <a href="{{ route "sharedEntry" "shareCode" .entry.ShareCode }}"
+                title="{{ t "entry.shared_entry.title" }}"
+                target="_blank">{{ icon "share" }}<span class="icon-label">{{ t "entry.shared_entry.label" }}</span></a>
+            </li>
+            <li>
+                <a href="#"
+                   data-confirm="true"
+                   data-url="{{ route "unshareEntry" "entryID" .entry.ID }}"
+                data-label-question="{{ t "confirm.question" }}"
+                data-label-yes="{{ t "confirm.yes" }}"
+                data-label-no="{{ t "confirm.no" }}"
+                data-label-loading="{{ t "confirm.loading" }}">{{ icon "delete" }}<span class="icon-label">{{ t "entry.unshare.label" }}</span></a>
+            </li>
+            {{ else }}
+            <li>
+                <a href="{{ route "shareEntry" "entryID" .entry.ID }}"
+                title="{{ t "entry.share.title" }}"
+                target="_blank">{{ icon "share" }}<span class="icon-label">{{ t "entry.share.label" }}</span></a>
+            </li>
+            {{ end }}
+            <li>
+                <a href="{{ .entry.URL | safeURL  }}"
+                   target="_blank"
+                   rel="noopener noreferrer"
+                   referrerpolicy="no-referrer"
+                   data-original-link="true">{{ icon "external-link" }}<span class="icon-label">{{ t "entry.external_link.label" }}</span></a>
+            </li>
+            <li>
+                <a href="#"
+                   title="{{ t "entry.scraper.title" }}"
+                data-fetch-content-entry="true"
+                data-fetch-content-url="{{ route "fetchContent" "entryID" .entry.ID }}"
+                data-label-loading="{{ t "entry.state.loading" }}"
+                >{{ icon "scraper" }}<span class="icon-label">{{ t "entry.scraper.label" }}</span></a>
+            </li>
+            {{ if .entry.CommentsURL }}
+            <li>
+                <a href="{{ .entry.CommentsURL | safeURL }}"
+                   title="{{ t "entry.comments.title" }}"
+                target="_blank"
+                rel="noopener noreferrer"
+                referrerpolicy="no-referrer"
+                data-comments-link="true"
+                >{{ icon "comment" }}<span class="icon-label">{{ t "entry.comments.label" }}</span></a>
+            </li>
+            {{ end }}
+        </ul>
+    </div>
+    {{ end }}
 </section>
-
 {{ if .user }}
 <div class="pagination-entry-bottom">
     {{ template "entry_pagination" . }}

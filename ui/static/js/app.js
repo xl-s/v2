@@ -157,13 +157,17 @@ function handleEntryStatus(item, element, setToRead) {
 // Change the entry status to the opposite value.
 function toggleEntryStatus(element, toasting) {
     let entryID = parseInt(element.dataset.id, 10);
-    let link = element.querySelector("a[data-toggle-status]");
-
+    let links = element.querySelectorAll("a[data-toggle-status]");
+    let link = links[0];
+    
     let currentStatus = link.dataset.value;
     let newStatus = currentStatus === "read" ? "unread" : "read";
-
-    link.querySelector("span").innerHTML = link.dataset.labelLoading;
-    updateEntriesStatus([entryID], newStatus, () => {
+    
+    links.forEach(link => {
+        link.querySelector("span").innerHTML = link.dataset.labelLoading;
+    });
+    
+    updateEntriesStatus([entryID], newStatus, () => links.forEach((link) => {
         let iconElement, label;
 
         if (currentStatus === "read") {
@@ -187,7 +191,7 @@ function toggleEntryStatus(element, toasting) {
             element.classList.remove("item-status-" + currentStatus);
             element.classList.add("item-status-" + newStatus);
         }
-    });
+    }));
 }
 
 // Mark a single entry as read.
@@ -280,16 +284,19 @@ function handleBookmark(element) {
 
 // Send the Ajax request and change the icon when bookmarking an entry.
 function toggleBookmark(parentElement, toasting) {
-    let element = parentElement.querySelector("a[data-toggle-bookmark]");
-    if (!element) {
+    let elements = parentElement.querySelectorAll("a[data-toggle-bookmark]");
+    if (elements.length === 0) {
         return;
     }
+    
+    elements.forEach(element => {
+        element.innerHTML = '<span class="icon-label">' + element.dataset.labelLoading + '</span>';
+    });
+    
+    let elm = elements[0];
 
-    element.innerHTML = '<span class="icon-label">' + element.dataset.labelLoading + '</span>';
-
-    let request = new RequestBuilder(element.dataset.bookmarkUrl);
-    request.withCallback(() => {
-
+    let request = new RequestBuilder(elm.dataset.bookmarkUrl);
+    request.withCallback(() => elements.forEach(element => {
         let currentStarStatus = element.dataset.value;
         let newStarStatus = currentStarStatus === "star" ? "unstar" : "star";
 
@@ -311,7 +318,7 @@ function toggleBookmark(parentElement, toasting) {
 
         element.innerHTML = iconElement.innerHTML + '<span class="icon-label">' + label + '</span>';
         element.dataset.value = newStarStatus;
-    });
+    }));
     request.execute();
 }
 

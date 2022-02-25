@@ -650,7 +650,6 @@ template {
 .pagination-entry-bottom {
     border-top: 1px dotted var(--pagination-border-color);
     margin-bottom: 15px;
-    margin-top: 50px;
     padding-top: 8px;
 }
 
@@ -814,15 +813,30 @@ article.feed-has-unread {
     color: #666;
 }
 
-.entry-actions {
+.entry-actions-top {
     margin-bottom: 20px;
 }
 
-.entry-actions a {
+.entry-actions-top a {
     text-decoration: none;
 }
 
-.entry-actions li {
+.entry-actions-top li {
+    display: inline-block;
+    margin-right: 15px;
+    line-height: 1.7em;
+}
+
+.entry-actions-bottom {
+    margin-top: 50px;
+    margin-bottom: 4px;
+}
+
+.entry-actions-bottom a {
+    text-decoration: none;
+}
+
+.entry-actions-bottom li {
     display: inline-block;
     margin-right: 15px;
     line-height: 1.7em;
